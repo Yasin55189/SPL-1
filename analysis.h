@@ -29,16 +29,3 @@ double percentageOfWhiteSpaceAnalyzer (string fileName)
 
     return result;
 }
-
-double percentageOfWhiteSpaceInSignatureAnalyzer (vector <string> inputCode)
-{
-    double result;
-    int space=0;
-    int line=0;
-    vector <string> :: iterator itr;
-
-    for(itr=inputCode.begin();itr!=inputCode.end();itr++)
-    {
-
-    }
-}
