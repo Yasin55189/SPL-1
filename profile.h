@@ -8,7 +8,9 @@ using namespace std;
 struct profile
 {
     int id;
+
     double percentageOfWhiteSpace;
+    double varianceOfPercentageOfWhiteSpace;
 };
 
 vector <profile> profiles;
@@ -22,18 +24,19 @@ void readProfiles ()
     if(iPro.is_open())
     {
         int a;
-        double b;
+        double b, c;
 
         iPro >> a;
 
         while(!iPro.eof())
         {
-            iPro >> b;
+            iPro >> b >> c;
 
             profile p;
 
             p.id=a;
             p.percentageOfWhiteSpace=b;
+            p.varianceOfPercentageOfWhiteSpace=c;
 
             profiles.push_back(p);
 
@@ -51,7 +54,8 @@ void writeProfiles ()
     {
         for(itr2=profiles.begin();itr2!=profiles.end();itr2++)
         {
-            oPro << (*itr2).id << ' ' << (*itr2).percentageOfWhiteSpace << endl;
+            oPro << (*itr2).id << ' ' << (*itr2).percentageOfWhiteSpace
+            << ' ' << (*itr2).varianceOfPercentageOfWhiteSpace << endl;
         }
     }
     oPro.close();
@@ -63,18 +67,32 @@ void profileSetUp ()
     double sum=0;
     cin >> a;
 
-    for(int i=0;i<20;i++)
+    int numberOfCodes = 30;
+
+    string s [numberOfCodes];
+
+    for(int i=0;i<numberOfCodes;i++)
     {
-        string s;
-        cin >> s;
-        sum=percentageOfWhiteSpaceAnalyzer(s);
+        cin >> s[i];
+        sum+=percentageOfWhiteSpaceAnalyzer(s[i]);
     }
-    double spacePer = sum / 20.0;
+
+    double spacePer = sum / numberOfCodes;
+
+    double SDsum=0;
+
+    for(int i=0;i<numberOfCodes;i++)
+    {
+        SDsum+=(percentageOfWhiteSpaceAnalyzer(s[i])-spacePer)*(percentageOfWhiteSpaceAnalyzer(s[i])-spacePer);
+    }
+
+    double SD = SDsum / numberOfCodes;
 
     profile p;
 
     p.id = a;
     p.percentageOfWhiteSpace = spacePer;
+    p.varianceOfPercentageOfWhiteSpace=SD;
 
     profiles.push_back(p);
 }
