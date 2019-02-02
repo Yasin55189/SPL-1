@@ -63,7 +63,7 @@ void writeProfiles ()
         {
             oPro << (*itr2).id << ' ' << (*itr2).percentageOfWhiteSpace
             << ' ' << (*itr2).varianceOfPercentageOfWhiteSpace
-            << (*itr2).percentageOfEmptyLines
+            << ' ' << (*itr2).percentageOfEmptyLines
             << ' ' << (*itr2).varianceOfPercentageOfEmptyLines << endl;
         }
     }
