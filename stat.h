@@ -7,8 +7,8 @@
 
 using namespace std;
 
-double mean (string s, vector <string> listOfFiles, double (*func) (string));
-double variance (string s, double mean, vector <string> listOfFiles, double (*func) (string));
+double mean (vector <double> vec);
+double variance (double mean,vector <double> vec);
 double alphaParameter (double mean, double variance);
 double betaParameter (double mean, double variance);
 double betaFunction (double mean, double variance);

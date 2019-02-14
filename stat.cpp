@@ -6,39 +6,41 @@
 
 using namespace std;
 
-double mean (string s, vector <string> listOfFiles, double (*func) (string))
+double mean (vector <double> vec)
 {
     double sum = 0;
 
-    vector <string> :: iterator stringItr;
+    int num = 0;
 
-    for(stringItr=listOfFiles.begin();stringItr!=listOfFiles.end();stringItr++)
+    vector <double> :: iterator itr;
+
+    for(itr=vec.begin();itr!=vec.end();itr++)
     {
-        string path = s+ "\\" + *stringItr;
-
-        sum+=func(path);
+        sum+=*itr;
+        num++;
     }
 
-    double meanPercentage = sum / 30;
+    double meanPercentage = sum / num;
 
     return meanPercentage;
 }
 
-double variance (string s, double mean, vector <string> listOfFiles, double (*func) (string))
+double variance (double mean,vector <double> vec)
 {
     double squaredSumOfDifferences=0;
 
-    vector <string> :: iterator stringItr;
+    int num = 0;
 
-    for(stringItr=listOfFiles.begin();stringItr!=listOfFiles.end();stringItr++)
+    vector <double> :: iterator itr;
+
+    for(itr=vec.begin();itr!=vec.end();itr++)
     {
-        string path = s+ "\\" + *stringItr;
-
-        squaredSumOfDifferences+=(func(path)-mean)
-        *(func(path)-mean);
+        squaredSumOfDifferences+=(*itr-mean)
+        *(*itr-mean);
+        num++;
     }
 
-    double varianceOfPercentage = squaredSumOfDifferences/30;
+    double varianceOfPercentage = squaredSumOfDifferences/num;
 
     return varianceOfPercentage;
 }
@@ -88,5 +90,3 @@ int matchingRankSum (map <int,double> proMap)
 
     return deAnoID;
 }
-
-

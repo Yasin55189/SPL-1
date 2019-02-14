@@ -47,43 +47,44 @@ void readProfiles ()
     iPro.open("profiles.csv");
     if(iPro.is_open())
     {
-        int id;
-        double space, varSpace, empLin, varEmpLin;
+        int id, numberOfSamples;
 
         string pro;
 
-        while(getline(iPro,pro))
-        {
-            queue<string> singlePro = cutString(pro);
+        getline(iPro,pro);
 
+        while(!iPro.eof())
+        {
+            if(pro.empty()) break;
+
+            queue<string> singlePro = cutString(pro);
 
             id=strToInt(singlePro.front());
             singlePro.pop();
 
-            space=strToDouble(singlePro.front());
+            numberOfSamples=strToInt(singlePro.front());
             singlePro.pop();
-
-            varSpace=strToDouble(singlePro.front());
-            singlePro.pop();
-
-            empLin=strToDouble(singlePro.front());
-            singlePro.pop();
-
-            varEmpLin=strToDouble(singlePro.front());
-            singlePro.pop();
-
 
             profile p;
 
             p.id=id;
+            p.numberOfSamples=numberOfSamples;
 
-            p.percentageOfWhiteSpace=space;
-            p.varianceOfPercentageOfWhiteSpace=varSpace;
+            for(int i=0;i<numberOfSamples;i++)
+            {
+                p.percentageOfWhiteSpace.push_back(strToDouble(singlePro.front()));
+                singlePro.pop();
+            }
 
-            p.percentageOfEmptyLines=empLin;
-            p.varianceOfPercentageOfEmptyLines=varEmpLin;
+            for(int i=0;i<numberOfSamples;i++)
+            {
+                p.percentageOfEmptyLines.push_back(strToDouble(singlePro.front()));
+                singlePro.pop();
+            }
 
             profiles.push_back(p);
+
+            getline(iPro,pro);
         }
     }
     iPro.close();
@@ -97,13 +98,58 @@ void writeProfiles ()
     {
         for(itr2=profiles.begin();itr2!=profiles.end();itr2++)
         {
-            oPro << (*itr2).id << ',' << (*itr2).percentageOfWhiteSpace
-            << ',' << (*itr2).varianceOfPercentageOfWhiteSpace
-            << ',' << (*itr2).percentageOfEmptyLines
-            << ',' << (*itr2).varianceOfPercentageOfEmptyLines << endl;
+            oPro << (*itr2).id << ',' << (*itr2).numberOfSamples << ',';
+
+            for(vector<double>::iterator itr=(*itr2).percentageOfWhiteSpace.begin();
+                itr!=(*itr2).percentageOfWhiteSpace.end();itr++)
+            {
+                oPro << *itr << ',';
+            }
+
+            for(vector<double>::iterator itr=(*itr2).percentageOfEmptyLines.begin();
+                itr!=(*itr2).percentageOfEmptyLines.end();itr++)
+            {
+                oPro << *itr << ',';
+            }
+
+            oPro << '\b' << endl;
         }
     }
     oPro.close();
+}
+
+void originalSetUp (int id, vector<string> listOfFiles, string directoryPath)
+{
+    vector <string> :: iterator stringItr;
+
+    profile p;
+    p.id = id;
+
+    for(stringItr=listOfFiles.begin();stringItr!=listOfFiles.end();stringItr++)
+    {
+        string path = directoryPath+ "\\" + *stringItr;
+
+        p.percentageOfWhiteSpace.push_back(percentageOfWhiteSpaceAnalyzer(path));
+        p.percentageOfEmptyLines.push_back(percentageOfEmptyLinesAnalyzer(path));
+    }
+
+    p.numberOfSamples=listOfFiles.size();
+
+    profiles.push_back(p);
+}
+
+void additionalSetUp (vector<profile>::iterator itr, vector<string> listOfFiles, string directoryPath)
+{
+    vector <string> :: iterator stringItr;
+
+    for(stringItr=listOfFiles.begin();stringItr!=listOfFiles.end();stringItr++)
+    {
+        string path = directoryPath+ "\\" + *stringItr;
+
+        (*itr).percentageOfWhiteSpace.push_back(percentageOfWhiteSpaceAnalyzer(path));
+        (*itr).percentageOfEmptyLines.push_back(percentageOfEmptyLinesAnalyzer(path));
+    }
+    (*itr).numberOfSamples+=listOfFiles.size();
 }
 
 void profileSetUp ()
@@ -120,25 +166,21 @@ void profileSetUp ()
     vector <string> listOfFiles = open (directoryPath);
     vector <string> :: iterator stringItr;
 
-    double spacePercentage = mean(directoryPath, listOfFiles, &percentageOfWhiteSpaceAnalyzer);
-    double emptyLinesPercentage = mean(directoryPath, listOfFiles, &percentageOfEmptyLinesAnalyzer);
+    int flag = 0;
 
-    double varianceOfSpacePercentage = variance(directoryPath, spacePercentage,
-                                                listOfFiles, &percentageOfWhiteSpaceAnalyzer);
-    double varianceOfEmptyLinesPercentage = variance(directoryPath, emptyLinesPercentage,
-                                                     listOfFiles, &percentageOfEmptyLinesAnalyzer);
+    for(itr2=profiles.begin();itr2!=profiles.end();itr2++)
+    {
+        if((*itr2).id==id)
+        {
+            additionalSetUp(itr2,listOfFiles,directoryPath);
+            flag = 1;
+        }
+    }
 
-    profile p;
-
-    p.id = id;
-
-    p.percentageOfWhiteSpace = spacePercentage;
-    p.varianceOfPercentageOfWhiteSpace=varianceOfSpacePercentage;
-
-    p.percentageOfEmptyLines = emptyLinesPercentage;
-    p.varianceOfPercentageOfEmptyLines=varianceOfEmptyLinesPercentage;
-
-    profiles.push_back(p);
+    if(flag==0)
+    {
+        originalSetUp(id,listOfFiles,directoryPath);
+    }
 }
 
 profile tempProfile (string s)
@@ -152,9 +194,11 @@ profile tempProfile (string s)
 
     p.id = id;
 
-    p.percentageOfWhiteSpace = spacePer;
+    p.numberOfSamples = 1;
 
-    p.percentageOfEmptyLines = empLinPer;
+    p.percentageOfWhiteSpace.push_back(spacePer);
+
+    p.percentageOfEmptyLines.push_back(empLinPer);
 
     return p;
 }
@@ -169,18 +213,27 @@ void deanonymize ()
 
     for(itr2=profiles.begin();itr2!=profiles.end();itr2++)
     {
+        double meanWhiteSpace = mean ((*itr2).percentageOfWhiteSpace);
 
-        double betaDistributionValue1 = betaDistribution((*itr2).percentageOfWhiteSpace,
-                                                        (*itr2).varianceOfPercentageOfWhiteSpace,
-                                                        temp.percentageOfWhiteSpace);
+        double varWhiteSpace = variance(meanWhiteSpace,(*itr2).percentageOfWhiteSpace);
 
-
-        double betaDistributionValue2 = betaDistribution((*itr2).percentageOfEmptyLines,
-                                                        (*itr2).varianceOfPercentageOfEmptyLines,
-                                                        temp.percentageOfEmptyLines);
+        double betaDistributionValueWS = betaDistribution(meanWhiteSpace,
+                                                        varWhiteSpace,
+                                                        temp.percentageOfWhiteSpace.front());
 
 
-        double rankSum = betaDistributionValue1*betaDistributionValue2;
+
+
+        double meanEmptyLines = mean ((*itr2).percentageOfEmptyLines);
+
+        double varEmptyLines = variance(meanEmptyLines,(*itr2).percentageOfEmptyLines);
+
+        double betaDistributionValueEL = betaDistribution(meanEmptyLines,
+                                                        varEmptyLines,
+                                                        temp.percentageOfEmptyLines.front());
+
+
+        double rankSum = betaDistributionValueWS*betaDistributionValueEL;
 
         proMap[(*itr2).id]=rankSum;
     }

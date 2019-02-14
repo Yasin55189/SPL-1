@@ -14,16 +14,19 @@ struct profile
 {
     int id;
 
-    double percentageOfWhiteSpace;
-    double varianceOfPercentageOfWhiteSpace;
+    int numberOfSamples;
 
-    double percentageOfEmptyLines;
-    double varianceOfPercentageOfEmptyLines;
+    vector <double> percentageOfWhiteSpace;
+    vector <double> percentageOfEmptyLines;
 };
 
 void readProfiles ();
 
 void writeProfiles ();
+
+void originalSetUp (int,vector<string>,string);
+
+void additionalSetUp (vector<profile>::iterator,vector<string>,string);
 
 void profileSetUp ();
 
