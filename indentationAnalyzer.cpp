@@ -6,6 +6,8 @@
 using namespace std;
 
 int indentSize;
+int bracingCounter;
+int numberOfProperIndentation;
 
 bool hasProperIndentation (string line)
 {
@@ -15,20 +17,44 @@ bool hasProperIndentation (string line)
     return false;
 }
 
+void initialIndentSize (string line)
+{
+    if(indentSize==-1)
+        indentSize = line.find_first_not_of(' ');
+}
+
+void sizeAndCounterUpdater (string line)
+{
+    if(line.find('{')!=string::npos)
+    {
+        bracingCounter++;
+
+        if(indentSize==0)
+            indentSize = -1;
+        else
+            indentSize = indentSize/(bracingCounter-1)*bracingCounter;
+    }
+
+    if(line.find('}')!=string::npos)
+    {
+        bracingCounter--;
+
+        if(indentSize!=0)
+        indentSize = indentSize/(bracingCounter+1)*bracingCounter;
+    }
+}
+
 double indentationAnalyzer (string fileName)
 {
-    indentSize = 0;
-    int braceCounter = 0;
+    indentSize=0;
+    bracingCounter=0;
 
     vector <string> inputCode = readCode(fileName);
     vector <string> :: iterator codeItr;
 
-    int numberOfProperIndentation = 0;
-
     for(codeItr=inputCode.begin();codeItr!=inputCode.end();codeItr++)
     {
-        if(indentSize==-1)
-            indentSize=(*codeItr).find_first_not_of(' ');
+        initialIndentSize(*codeItr);
 
         if((*codeItr).empty())
         {
@@ -39,26 +65,8 @@ double indentationAnalyzer (string fileName)
         if(hasProperIndentation(*codeItr))
             numberOfProperIndentation++;
 
-        if((*codeItr).find('{')!=string::npos)
-        {
-            braceCounter++;
-
-            if(indentSize==0)
-                indentSize = -1;
-            else
-                indentSize = indentSize/(braceCounter-1)*braceCounter;
-        }
-
-        if((*codeItr).find('}')!=string::npos)
-        {
-            braceCounter--;
-
-            if(indentSize!=0)
-                indentSize = indentSize/(braceCounter+1)*braceCounter;
-        }
+        sizeAndCounterUpdater(*codeItr);
     }
 
     return (double) numberOfProperIndentation * 100.0 / inputCode.size();
 }
-
-

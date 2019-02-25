@@ -32,6 +32,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="bracingAnalyzer.cpp" />
+		<Unit filename="bracingAnalyzer.h" />
 		<Unit filename="code.cpp" />
 		<Unit filename="code.h">
 			<Option target="&lt;{~None~}&gt;" />
