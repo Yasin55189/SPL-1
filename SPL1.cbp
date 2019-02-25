@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="code.cpp" />
 		<Unit filename="code.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
@@ -39,6 +40,8 @@
 		<Unit filename="emptyLinesAnalyzer.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="indentationAnalyzer.cpp" />
+		<Unit filename="indentationAnalyzer.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="others.cpp" />
 		<Unit filename="others.h" />
@@ -47,6 +50,8 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="profiles.csv" />
+		<Unit filename="signatureAnalyzer.cpp" />
+		<Unit filename="signatureAnalyzer.h" />
 		<Unit filename="stat.cpp" />
 		<Unit filename="stat.h">
 			<Option target="&lt;{~None~}&gt;" />
