@@ -54,6 +54,8 @@
 		<Unit filename="profiles.csv" />
 		<Unit filename="signatureAnalyzer.cpp" />
 		<Unit filename="signatureAnalyzer.h" />
+		<Unit filename="spaceSymbolAnalyzer.cpp" />
+		<Unit filename="spaceSymbolAnalyzer.h" />
 		<Unit filename="stat.cpp" />
 		<Unit filename="stat.h">
 			<Option target="&lt;{~None~}&gt;" />

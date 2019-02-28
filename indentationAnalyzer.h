@@ -5,13 +5,7 @@
 
 using namespace std;
 
-bool hasProperIndentation (string);
-
 double indentationAnalyzer (string);
-
-void sizeAndCounterUpdater (string);
-
-void initialIndentSize (string);
 
 #endif
 

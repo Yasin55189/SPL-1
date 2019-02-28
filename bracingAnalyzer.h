@@ -12,9 +12,6 @@ struct braceStyle
     bool isFirst;
 };
 
-bool isStraight (string);
-bool isVertical (string,string);
-bool isFirst (string);
-double bracingAnalyzer (string);
+char bracingAnalyzer (string);
 
 #endif
