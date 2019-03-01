@@ -40,18 +40,22 @@ double signatureAnalyzer (string fileName)
 
     for(codeItr=inputCode.begin();codeItr!=inputCode.end();codeItr++)
     {
-        if(isSignature(*codeItr))
+        string line = *codeItr;
+
+        if(isSignature(line))
         {
-            for(int startPoint = (*codeItr).find_first_not_of(' '); (*codeItr)[startPoint]!='\0'; startPoint++)
+            for(int startPoint = line.find_first_not_of(' '); line[startPoint]!='\0'; startPoint++)
             {
-                if((*codeItr)[startPoint]==' ')
+                if(line[startPoint]==' ')
                     numberOfSpaces++;
             }
             numberOfSignature++;
         }
 
-        if((*codeItr).find('{')!=string::npos) braceCounter++;
-        if((*codeItr).find('}')!=string::npos) braceCounter--;
+        if(line.find('{')!=string::npos)
+            braceCounter++;
+        if(line.find('}')!=string::npos)
+            braceCounter--;
     }
 
     return (double)numberOfSpaces/numberOfSignature;

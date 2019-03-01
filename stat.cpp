@@ -40,9 +40,9 @@ double variance (double mean,vector <double> vec)
         num++;
     }
 
-    double varianceOfPercentage = squaredSumOfDifferences/num;
+    double variance = squaredSumOfDifferences/num;
 
-    return varianceOfPercentage;
+    return variance;
 }
 
 double alphaParameter (double mean, double variance)
@@ -70,6 +70,11 @@ double betaDistribution (double mean, double variance, double tempMean)
     double b = betaParameter(mean,variance);
     double betaFunctionValue = betaFunction(mean,variance);
     return (pow(tempMean/100,a-1)*pow(1-(tempMean/100),b-1))/betaFunctionValue;
+}
+
+double normalDistribution (double mean, double variance, double tempMean)
+{
+    return (1/(sqrt(2*3.1416*variance)))*exp(-((pow(tempMean-mean,2))/(2*variance)));
 }
 
 int matchingRankSum (map <int,double> proMap)

@@ -5,8 +5,6 @@
 
 using namespace std;
 
-bool isSignature (string);
-
 double signatureAnalyzer (string);
 
 #endif

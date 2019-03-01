@@ -2,6 +2,7 @@
 #define BRACINGANALYZER_H_INCLUDED
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -13,5 +14,6 @@ struct braceStyle
 };
 
 char bracingAnalyzer (string);
+char bracingStyleFinalizer (vector<char>);
 
 #endif

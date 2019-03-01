@@ -4,9 +4,6 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include "whiteSpaceAnalyzer.h"
-#include "emptyLinesAnalyzer.h"
-#include "stat.h"
 
 using namespace std;
 
@@ -18,6 +15,11 @@ struct profile
 
     vector <double> percentageOfWhiteSpace;
     vector <double> percentageOfEmptyLines;
+    vector <double> spacePerSignature;
+    vector <double> percentageOfProperIndentation;
+    vector <double> percentageOfSpaceBeforeEqual;
+    vector <double> percentageOfSpaceAfterEqual;
+    vector <char> bracingStyle;
 };
 
 void readProfiles ();

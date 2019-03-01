@@ -1,5 +1,12 @@
 #include "profiler.h"
 #include "others.h"
+#include "whiteSpaceAnalyzer.h"
+#include "emptyLinesAnalyzer.h"
+#include "stat.h"
+#include "bracingAnalyzer.h"
+#include "indentationAnalyzer.h"
+#include "signatureAnalyzer.h"
+#include "spaceSymbolAnalyzer.h"
 #include <math.h>
 #include <map>
 #include <dirent.h>
@@ -82,6 +89,36 @@ void readProfiles ()
                 singlePro.pop();
             }
 
+            for(int i=0;i<numberOfSamples;i++)
+            {
+                p.spacePerSignature.push_back(strToDouble(singlePro.front()));
+                singlePro.pop();
+            }
+
+            for(int i=0;i<numberOfSamples;i++)
+            {
+                p.percentageOfProperIndentation.push_back(strToDouble(singlePro.front()));
+                singlePro.pop();
+            }
+
+            for(int i=0;i<numberOfSamples;i++)
+            {
+                p.percentageOfSpaceBeforeEqual.push_back(strToDouble(singlePro.front()));
+                singlePro.pop();
+            }
+
+            for(int i=0;i<numberOfSamples;i++)
+            {
+                p.percentageOfSpaceAfterEqual.push_back(strToDouble(singlePro.front()));
+                singlePro.pop();
+            }
+
+            for(int i=0;i<numberOfSamples;i++)
+            {
+                p.bracingStyle.push_back(singlePro.front()[0]);
+                singlePro.pop();
+            }
+
             profiles.push_back(p);
 
             getline(iPro,pro);
@@ -112,6 +149,36 @@ void writeProfiles ()
                 oPro << *itr << ',';
             }
 
+            for(vector<double>::iterator itr=(*itr2).spacePerSignature.begin();
+                itr!=(*itr2).spacePerSignature.end();itr++)
+            {
+                oPro << *itr << ',';
+            }
+
+            for(vector<double>::iterator itr=(*itr2).percentageOfProperIndentation.begin();
+                itr!=(*itr2).percentageOfProperIndentation.end();itr++)
+            {
+                oPro << *itr << ',';
+            }
+
+            for(vector<double>::iterator itr=(*itr2).percentageOfSpaceBeforeEqual.begin();
+                itr!=(*itr2).percentageOfSpaceBeforeEqual.end();itr++)
+            {
+                oPro << *itr << ',';
+            }
+
+            for(vector<double>::iterator itr=(*itr2).percentageOfSpaceAfterEqual.begin();
+                itr!=(*itr2).percentageOfSpaceAfterEqual.end();itr++)
+            {
+                oPro << *itr << ',';
+            }
+
+            for(vector<char>::iterator itr=(*itr2).bracingStyle.begin();
+                itr!=(*itr2).bracingStyle.end();itr++)
+            {
+                oPro << *itr << ',';
+            }
+
             oPro << '\b' << endl;
         }
     }
@@ -131,6 +198,11 @@ void originalSetUp (int id, vector<string> listOfFiles, string directoryPath)
 
         p.percentageOfWhiteSpace.push_back(percentageOfWhiteSpaceAnalyzer(path));
         p.percentageOfEmptyLines.push_back(percentageOfEmptyLinesAnalyzer(path));
+        p.spacePerSignature.push_back(signatureAnalyzer(path));
+        p.percentageOfProperIndentation.push_back(indentationAnalyzer(path));
+        p.percentageOfSpaceBeforeEqual.push_back(percentageOfSpaceSymbolAnalyzer(path,"=",0));
+        p.percentageOfSpaceAfterEqual.push_back(percentageOfSpaceSymbolAnalyzer(path,"=",1));
+        p.bracingStyle.push_back(bracingAnalyzer(path));
     }
 
     p.numberOfSamples=listOfFiles.size();
@@ -148,6 +220,11 @@ void additionalSetUp (vector<profile>::iterator itr, vector<string> listOfFiles,
 
         (*itr).percentageOfWhiteSpace.push_back(percentageOfWhiteSpaceAnalyzer(path));
         (*itr).percentageOfEmptyLines.push_back(percentageOfEmptyLinesAnalyzer(path));
+        (*itr).spacePerSignature.push_back(signatureAnalyzer(path));
+        (*itr).percentageOfProperIndentation.push_back(indentationAnalyzer(path));
+        (*itr).percentageOfSpaceBeforeEqual.push_back(percentageOfSpaceSymbolAnalyzer(path,"=",0));
+        (*itr).percentageOfSpaceAfterEqual.push_back(percentageOfSpaceSymbolAnalyzer(path,"=",1));
+        (*itr).bracingStyle.push_back(bracingAnalyzer(path));
     }
     (*itr).numberOfSamples+=listOfFiles.size();
 }
@@ -185,20 +262,25 @@ void profileSetUp ()
 
 profile tempProfile (string s)
 {
-    int id = -1;
-
-    double spacePer = percentageOfWhiteSpaceAnalyzer(s);
-    double empLinPer = percentageOfEmptyLinesAnalyzer(s);
-
     profile p;
 
-    p.id = id;
+    p.id = -1;
 
     p.numberOfSamples = 1;
 
-    p.percentageOfWhiteSpace.push_back(spacePer);
+    p.percentageOfWhiteSpace.push_back(percentageOfWhiteSpaceAnalyzer(s));
 
-    p.percentageOfEmptyLines.push_back(empLinPer);
+    p.percentageOfEmptyLines.push_back(percentageOfEmptyLinesAnalyzer(s));
+
+    p.spacePerSignature.push_back(signatureAnalyzer(s));
+
+    p.percentageOfProperIndentation.push_back(indentationAnalyzer(s));
+
+    p.percentageOfSpaceBeforeEqual.push_back(percentageOfSpaceSymbolAnalyzer(s,"=",0));
+
+    p.percentageOfSpaceAfterEqual.push_back(percentageOfSpaceSymbolAnalyzer(s,"=",1));
+
+    p.bracingStyle.push_back(bracingAnalyzer(s));
 
     return p;
 }
@@ -213,27 +295,41 @@ void deanonymize ()
 
     for(itr2=profiles.begin();itr2!=profiles.end();itr2++)
     {
-        double meanWhiteSpace = mean ((*itr2).percentageOfWhiteSpace);
+        double meanValue = mean ((*itr2).percentageOfWhiteSpace);
+        double var = variance(meanValue,(*itr2).percentageOfWhiteSpace);
+        double betaDistributionValueWS = betaDistribution(meanValue, var, temp.percentageOfWhiteSpace.front());
 
-        double varWhiteSpace = variance(meanWhiteSpace,(*itr2).percentageOfWhiteSpace);
+        meanValue = mean ((*itr2).percentageOfEmptyLines);
+        var = variance(meanValue,(*itr2).percentageOfEmptyLines);
+        double betaDistributionValueEL = betaDistribution(meanValue, var, temp.percentageOfEmptyLines.front());
 
-        double betaDistributionValueWS = betaDistribution(meanWhiteSpace,
-                                                        varWhiteSpace,
-                                                        temp.percentageOfWhiteSpace.front());
+        meanValue = mean ((*itr2).spacePerSignature);
+        var = variance(meanValue,(*itr2).spacePerSignature);
+        double normalDistributionValueSS = normalDistribution(meanValue, var, temp.spacePerSignature.front());
+
+        meanValue = mean ((*itr2).percentageOfProperIndentation);
+        var = variance(meanValue,(*itr2).percentageOfProperIndentation);
+        double betaDistributionValuePI = betaDistribution(meanValue, var, temp.percentageOfProperIndentation.front());
+
+        meanValue = mean ((*itr2).percentageOfSpaceBeforeEqual);
+        var = variance(meanValue,(*itr2).percentageOfSpaceBeforeEqual);
+        double betaDistributionValueSBE = betaDistribution(meanValue, var, temp.percentageOfSpaceBeforeEqual.front());
+
+        meanValue = mean ((*itr2).percentageOfSpaceAfterEqual);
+        var = variance(meanValue,(*itr2).percentageOfSpaceAfterEqual);
+        double betaDistributionValueSAE = betaDistribution(meanValue, var, temp.percentageOfSpaceAfterEqual.front());
 
 
 
+        double rankSum = betaDistributionValueWS*betaDistributionValueEL
+                        *betaDistributionValuePI*betaDistributionValueSAE
+                        *betaDistributionValueSBE*normalDistributionValueSS;
 
-        double meanEmptyLines = mean ((*itr2).percentageOfEmptyLines);
+        if(bracingStyleFinalizer((*itr2).bracingStyle)!=temp.bracingStyle.front())
+        {
+            rankSum = -1;
+        }
 
-        double varEmptyLines = variance(meanEmptyLines,(*itr2).percentageOfEmptyLines);
-
-        double betaDistributionValueEL = betaDistribution(meanEmptyLines,
-                                                        varEmptyLines,
-                                                        temp.percentageOfEmptyLines.front());
-
-
-        double rankSum = betaDistributionValueWS*betaDistributionValueEL;
 
         proMap[(*itr2).id]=rankSum;
     }

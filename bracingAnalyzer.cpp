@@ -85,13 +85,13 @@ void countingStyles ()
     }
 }
 
-char countStyleAnalyzer ()
+char countStyleAnalyzer (int A, int B, int C, int D)
 {
-    if(countA>countB&&countA>countC&&countA>countD)
+    if(A>B&&A>C&&A>D)
         return 'A';
-    else if (countB>countA&&countB>countC&&countB>countD)
+    else if (B>A&&B>C&&B>D)
         return 'B';
-    else if (countC>countA&&countC>countB&&countC>countD)
+    else if (C>A&&C>B&&C>D)
         return 'C';
     else
         return 'D';
@@ -137,7 +137,28 @@ char bracingAnalyzer (string fileName)
 
     countingStyles();
 
-    style = countStyleAnalyzer();
+    style = countStyleAnalyzer(countA,countB,countC,countD);
 
     return style;
+}
+
+char bracingStyleFinalizer (vector<char> vec)
+{
+    int inCountA=0,inCountB=0,inCountC=0,inCountD=0;
+
+    vector <char> :: iterator itr;
+
+    for(itr=vec.begin();itr!=vec.end();itr++)
+    {
+        if(*itr=='A')
+            inCountA++;
+        else if(*itr=='B')
+            inCountB++;
+        else if(*itr=='C')
+            inCountC++;
+        else
+            inCountD++;
+    }
+
+    return countStyleAnalyzer(inCountA,inCountB,inCountC,inCountD);
 }

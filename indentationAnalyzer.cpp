@@ -54,18 +54,19 @@ double indentationAnalyzer (string fileName)
 
     for(codeItr=inputCode.begin();codeItr!=inputCode.end();codeItr++)
     {
-        initialIndentSize(*codeItr);
+        string line = *codeItr;
+        initialIndentSize(line);
 
-        if((*codeItr).empty())
+        if(line.empty())
         {
             numberOfProperIndentation++;
             continue;
         }
 
-        if(hasProperIndentation(*codeItr))
+        if(hasProperIndentation(line))
             numberOfProperIndentation++;
 
-        sizeAndCounterUpdater(*codeItr);
+        sizeAndCounterUpdater(line);
     }
 
     return (double) numberOfProperIndentation * 100.0 / inputCode.size();

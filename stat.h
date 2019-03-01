@@ -13,6 +13,7 @@ double alphaParameter (double mean, double variance);
 double betaParameter (double mean, double variance);
 double betaFunction (double mean, double variance);
 double betaDistribution (double mean, double variance, double tempMean);
+double normalDistribution (double mean, double variance, double tempMean);
 int matchingRankSum (map <int,double> proMap);
 
 #endif // STAT_H_INCLUDED
