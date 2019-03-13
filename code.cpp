@@ -4,10 +4,11 @@
 
 using namespace std;
 
+vector <string> inputCode;
+
 vector <string> readCode (string fileName)
 {
-    vector <string> inputCode;
-
+    inputCode.clear();
     ifstream iCod;
     iCod.open(fileName.c_str());
     if(iCod.is_open())
@@ -19,8 +20,8 @@ vector <string> readCode (string fileName)
             inputCode.push_back(s);
             getline(iCod,s);
         }
+        iCod.close();
     }
-    iCod.close();
 
     return inputCode;
 }

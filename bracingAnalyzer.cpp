@@ -99,40 +99,45 @@ char countStyleAnalyzer (int A, int B, int C, int D)
 
 void startingBraceActivities (string line, string preLine)
 {
-    if(line.find('{')!=string::npos)
-    {
-        int tempBrace = line.find_first_not_of(' ');
+    int tempBrace = line.find_first_not_of(' ');
 
-        braceIndentSize.push_back(tempBrace);
+    braceIndentSize.push_back(tempBrace);
 
-        braceStyle temp;
-        temp.isFirst = isFirst(line);
-        temp.isVertical = isVertical(line,preLine);
+    braceStyle temp;
+    temp.isFirst = isFirst(line);
+    temp.isVertical = isVertical(line,preLine);
 
-        braceStyleArray.push_back(temp);
-    }
+    braceStyleArray.push_back(temp);
 }
 
 void endingBraceActivities (string line)
 {
-    if(line.find('}')!=string::npos)
-    {
-        (*((braceStyleArray.end())-1)).isStraight=isStraight(line);
+    (*((braceStyleArray.end())-1)).isStraight=isStraight(line);
 
-        braceIndentSize.pop_back();
-    }
+    braceIndentSize.pop_back();
 }
 
 char bracingAnalyzer (string fileName)
 {
+    countA=0;
+    countB=0;
+    countC=0;
+    countD=0;
+    braceStyleArray.clear();
+    braceIndentSize.clear();
     vector <string> inputCode = readCode(fileName);
     vector <string> :: iterator codeItr;
 
     for(codeItr=inputCode.begin();codeItr!=inputCode.end();codeItr++)
     {
-        startingBraceActivities(*codeItr,*(codeItr-1));
-
-        endingBraceActivities(*codeItr);
+        if((*codeItr).find('{')!=string::npos)
+        {
+            startingBraceActivities(*codeItr,*(codeItr-1));
+        }
+        if((*codeItr).find('}')!=string::npos)
+        {
+            endingBraceActivities(*codeItr);
+        }
     }
 
     countingStyles();

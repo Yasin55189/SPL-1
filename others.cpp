@@ -52,16 +52,26 @@ double strToDouble (string s)
 {
     string temp1, temp2;
 
+    int flag = 0;
+
     for(int i=0;s[i]!='\0';i++)
     {
         if(s[i]=='.')
         {
             temp1=temp2;
             temp2.clear();
+            flag=1;
         }
         else
             temp2+=s[i];
     }
+
+    if(flag==0)
+    {
+        temp1=temp2;
+        temp2.clear();
+    }
+
 
     double num = strToInt(temp1);
     double rad = strToRad(temp2);

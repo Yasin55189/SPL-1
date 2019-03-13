@@ -25,8 +25,8 @@ double percentageOfWhiteSpaceAnalyzer (string fileName)
                 space++;
             iCod.get(c);
         }
+        iCod.close();
     }
-    iCod.close();
 
     result = (double) (space * 100.0) / total;
 

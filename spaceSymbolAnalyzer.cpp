@@ -74,6 +74,9 @@ double percentageOfSpaceSymbolAnalyzer (string fileName, string symbol, int dire
         numberOfSymbol = numberOfSymbol + indexVec.size();
     }
 
+    if(numberOfSymbol==0)
+        return -1;
+
     return (double) (numberOfSpace/numberOfSymbol) * 100.0;
 }
 

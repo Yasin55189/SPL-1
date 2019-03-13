@@ -48,6 +48,7 @@ double indentationAnalyzer (string fileName)
 {
     indentSize=0;
     bracingCounter=0;
+    numberOfProperIndentation=0;
 
     vector <string> inputCode = readCode(fileName);
     vector <string> :: iterator codeItr;
