@@ -13,6 +13,8 @@ vector<point> profileToPointsConverter (vector<profile> profiles)
         for(int i=0; i<(*itrProfile).numberOfSamples; i++)
         {
             point tempPoint;
+            
+            tempPoint.id=(*itrProfile).id;
 
             tempPoint.percentageOfEmptyLines=(*itrProfile).percentageOfEmptyLines.back();
             tempPoint.percentageOfProperIndentation=(*itrProfile).percentageOfProperIndentation.back();
