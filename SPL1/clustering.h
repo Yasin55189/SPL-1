@@ -13,5 +13,11 @@ struct point
     //char bracingStyle;
 };
 
+struct cluster
+{
+    point mean;
+    vector <point> clusPoints;
+};
 
-vector<point> profileToPointsConverter (vector<profile>);
+
+vector<point> profilesToPointsConverter (vector<profile>);
