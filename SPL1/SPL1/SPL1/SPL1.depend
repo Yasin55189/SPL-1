@@ -1,0 +1,247 @@
+# depslib dependency file v1.0
+1549300712 source:c:\users\asus\desktop\spl 1\spl1\deanonymization.cpp
+	<iostream>
+	"deanonymization.h"
+	<math.h>
+
+1549304808 c:\users\asus\desktop\spl 1\spl1\deanonymization.h
+	"profiler.h"
+	<iostream>
+
+1551429494 c:\users\asus\desktop\spl 1\spl1\profiler.h
+	<iostream>
+	<vector>
+	<fstream>
+
+1549301264 c:\users\asus\desktop\spl 1\spl1\whitespaceanalyzer.h
+	<iostream>
+
+1549301304 c:\users\asus\desktop\spl 1\spl1\emptylinesanalyzer.h
+	<iostream>
+
+1552482114 source:c:\users\asus\desktop\spl 1\spl1\emptylinesanalyzer.cpp
+	"emptyLinesAnalyzer.h"
+	<iostream>
+	<fstream>
+
+1553526093 source:c:\users\asus\desktop\spl 1\spl1\profiler.cpp
+	"profiler.h"
+	"others.h"
+	"whiteSpaceAnalyzer.h"
+	"emptyLinesAnalyzer.h"
+	"stat.h"
+	"bracingAnalyzer.h"
+	"indentationAnalyzer.h"
+	"signatureAnalyzer.h"
+	"spaceSymbolAnalyzer.h"
+	<math.h>
+	<map>
+	<dirent.h>
+	<string>
+	<vector>
+
+1552476599 source:c:\users\asus\desktop\spl 1\spl1\whitespaceanalyzer.cpp
+	"whiteSpaceAnalyzer.h"
+	<iostream>
+	<fstream>
+
+1552483048 source:c:\users\asus\desktop\spl 1\spl1\main.cpp
+	<iostream>
+	"profiler.h"
+
+1551391767 c:\users\asus\desktop\spl 1\spl1\stat.h
+	<vector>
+	<map>
+	<iostream>
+
+1551429416 source:c:\users\asus\desktop\spl 1\spl1\stat.cpp
+	<iostream>
+	<math.h>
+	"stat.h"
+	<vector>
+	<map>
+
+1552480752 source:c:\users\asus\desktop\spl 1\spl1\others.cpp
+	<iostream>
+	<queue>
+	"others.h"
+
+1549606730 c:\users\asus\desktop\spl 1\spl1\others.h
+	<iostream>
+	<queue>
+
+1552494599 source:c:\users\asus\desktop\spl 1\spl1\code.cpp
+	<iostream>
+	<vector>
+	<fstream>
+
+1551310103 source:c:\users\asus\desktop\spl 1\spl1\signatureanalyzer.cpp
+	"signatureAnalyzer.h"
+	"code.h"
+	<iostream>
+	<fstream>
+	<vector>
+
+1551313607 c:\users\asus\desktop\spl 1\spl1\signatureanalyzer.h
+	<iostream>
+
+1550160675 c:\users\asus\desktop\spl 1\spl1\code.h
+	<iostream>
+	<vector>
+
+1552479580 source:c:\users\asus\desktop\spl 1\spl1\indentationanalyzer.cpp
+	<iostream>
+	<vector>
+	"indentationAnalyzer.h"
+	"code.h"
+
+1551313561 c:\users\asus\desktop\spl 1\spl1\indentationanalyzer.h
+	<iostream>
+
+1551736710 source:c:\users\asus\desktop\spl 1\spl1\bracinganalyzer.cpp
+	<iostream>
+	<vector>
+	"bracingAnalyzer.h"
+	"code.h"
+
+1551736716 c:\users\asus\desktop\spl 1\spl1\bracinganalyzer.h
+	<iostream>
+	<vector>
+
+1551313247 source:c:\users\asus\desktop\spl 1\spl1\spacebeforeanalyzer.cpp
+	<iostream>
+	<vector>
+	"spaceBeforeAnalyzer.h"
+	"code.h"
+
+1551313432 c:\users\asus\desktop\spl 1\spl1\spacebeforeanalyzer.h
+	<iostream>
+
+1553528103 source:c:\users\asus\desktop\spl 1\spl1\spacesymbolanalyzer.cpp
+	<iostream>
+	<vector>
+	"spaceSymbolAnalyzer.h"
+	"code.h"
+
+1551316179 c:\users\asus\desktop\spl 1\spl1\spacesymbolanalyzer.h
+	<iostream>
+
+1555626387 source:c:\users\iit\desktop\spl-1-master\spl1\bracinganalyzer.cpp
+	<iostream>
+	<vector>
+	"bracingAnalyzer.h"
+	"code.h"
+
+1555626387 c:\users\iit\desktop\spl-1-master\spl1\bracinganalyzer.h
+	<iostream>
+	<vector>
+
+1555626387 c:\users\iit\desktop\spl-1-master\spl1\code.h
+	<iostream>
+	<vector>
+
+1555626387 source:c:\users\iit\desktop\spl-1-master\spl1\code.cpp
+	<iostream>
+	<vector>
+	<fstream>
+
+1555626387 source:c:\users\iit\desktop\spl-1-master\spl1\emptylinesanalyzer.cpp
+	"emptyLinesAnalyzer.h"
+	<iostream>
+	<fstream>
+
+1555626387 c:\users\iit\desktop\spl-1-master\spl1\emptylinesanalyzer.h
+	<iostream>
+
+1555626387 source:c:\users\iit\desktop\spl-1-master\spl1\indentationanalyzer.cpp
+	<iostream>
+	<vector>
+	"indentationAnalyzer.h"
+	"code.h"
+
+1555626387 c:\users\iit\desktop\spl-1-master\spl1\indentationanalyzer.h
+	<iostream>
+
+1555626387 source:c:\users\iit\desktop\spl-1-master\spl1\main.cpp
+	<iostream>
+	"profiler.h"
+
+1555626387 c:\users\iit\desktop\spl-1-master\spl1\profiler.h
+	<iostream>
+	<vector>
+	<fstream>
+
+1555626387 source:c:\users\iit\desktop\spl-1-master\spl1\others.cpp
+	<iostream>
+	<queue>
+	"others.h"
+
+1555626387 c:\users\iit\desktop\spl-1-master\spl1\others.h
+	<iostream>
+	<queue>
+
+1555626387 source:c:\users\iit\desktop\spl-1-master\spl1\signatureanalyzer.cpp
+	"signatureAnalyzer.h"
+	"code.h"
+	<iostream>
+	<fstream>
+	<vector>
+
+1555626387 c:\users\iit\desktop\spl-1-master\spl1\signatureanalyzer.h
+	<iostream>
+
+1555626387 source:c:\users\iit\desktop\spl-1-master\spl1\spacesymbolanalyzer.cpp
+	<iostream>
+	<vector>
+	"spaceSymbolAnalyzer.h"
+	"code.h"
+
+1555626387 c:\users\iit\desktop\spl-1-master\spl1\spacesymbolanalyzer.h
+	<iostream>
+
+1555626387 source:c:\users\iit\desktop\spl-1-master\spl1\stat.cpp
+	<iostream>
+	<math.h>
+	"stat.h"
+	<vector>
+	<map>
+
+1555626387 c:\users\iit\desktop\spl-1-master\spl1\stat.h
+	<vector>
+	<map>
+	<iostream>
+
+1555626387 source:c:\users\iit\desktop\spl-1-master\spl1\whitespaceanalyzer.cpp
+	"whiteSpaceAnalyzer.h"
+	<iostream>
+	<fstream>
+
+1555626387 c:\users\iit\desktop\spl-1-master\spl1\whitespaceanalyzer.h
+	<iostream>
+
+1555810414 source:c:\users\iit\desktop\spl-1-master\spl1\profiler.cpp
+	"profiler.h"
+	"others.h"
+	"whiteSpaceAnalyzer.h"
+	"emptyLinesAnalyzer.h"
+	"stat.h"
+	"bracingAnalyzer.h"
+	"indentationAnalyzer.h"
+	"signatureAnalyzer.h"
+	"spaceSymbolAnalyzer.h"
+	"clustering.h"
+	<math.h>
+	<map>
+	<dirent.h>
+	<string>
+	<vector>
+
+1555807381 c:\users\iit\desktop\spl-1-master\spl1\clustering.h
+	<vector>
+	"profiler.h"
+
+1555807431 source:c:\users\iit\desktop\spl-1-master\spl1\clustering.cpp
+	<iostream>
+	"clustering.h"
+	<math.h>
+
