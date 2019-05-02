@@ -34,6 +34,8 @@
 		</Compiler>
 		<Unit filename="bracingAnalyzer.cpp" />
 		<Unit filename="bracingAnalyzer.h" />
+		<Unit filename="clustering.cpp" />
+		<Unit filename="clustering.h" />
 		<Unit filename="code.cpp" />
 		<Unit filename="code.h">
 			<Option target="&lt;{~None~}&gt;" />

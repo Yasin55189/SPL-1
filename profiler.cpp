@@ -7,6 +7,7 @@
 #include "indentationAnalyzer.h"
 #include "signatureAnalyzer.h"
 #include "spaceSymbolAnalyzer.h"
+#include "clustering.h"
 #include <math.h>
 #include <map>
 #include <dirent.h>
@@ -14,9 +15,6 @@
 #include <vector>
 
 using namespace std;
-
-map <int,double> proMap;
-map <int,double> :: iterator mapItr;
 
 vector <profile> profiles;
 vector <profile> :: iterator itr2;
@@ -112,13 +110,12 @@ void readProfiles ()
                 p.percentageOfSpaceAfterEqual.push_back(strToDouble(singlePro.front()));
                 singlePro.pop();
             }
-/*
+
             for(int i=0;i<numberOfSamples;i++)
             {
                 p.bracingStyle.push_back(singlePro.front()[0]);
                 singlePro.pop();
             }
-*/
 
             profiles.push_back(p);
 
@@ -173,14 +170,14 @@ void writeProfiles ()
             {
                 oPro << *itr << ',';
             }
-/*
+
             for(vector<char>::iterator itr=(*itr2).bracingStyle.begin();
                 itr!=(*itr2).bracingStyle.end();itr++)
             {
                 oPro << *itr << ',';
             }
-*/
-            oPro << '\b' << endl;
+
+            oPro << endl;
         }
     }
     oPro.close();
@@ -209,7 +206,7 @@ void originalSetUp (int id, vector<string> listOfFiles, string directoryPath)
         p.percentageOfSpaceBeforeEqual.push_back(percentageOfSpaceSymbolAnalyzer(path,"=",0));
         p.percentageOfSpaceAfterEqual.push_back(percentageOfSpaceSymbolAnalyzer(path,"=",1));
 
-        //p.bracingStyle.push_back(bracingAnalyzer(path));
+        p.bracingStyle.push_back(bracingAnalyzer(path));
     }
 
     p.numberOfSamples=listOfFiles.size();
@@ -231,7 +228,7 @@ void additionalSetUp (vector<profile>::iterator itr, vector<string> listOfFiles,
         (*itr).percentageOfProperIndentation.push_back(indentationAnalyzer(path));
         (*itr).percentageOfSpaceBeforeEqual.push_back(percentageOfSpaceSymbolAnalyzer(path,"=",0));
         (*itr).percentageOfSpaceAfterEqual.push_back(percentageOfSpaceSymbolAnalyzer(path,"=",1));
-        //(*itr).bracingStyle.push_back(bracingAnalyzer(path));
+        (*itr).bracingStyle.push_back(bracingAnalyzer(path));
     }
     (*itr).numberOfSamples+=listOfFiles.size();
 }
@@ -292,7 +289,7 @@ profile tempProfile (string s)
 
     p.percentageOfSpaceAfterEqual.push_back(percentageOfSpaceSymbolAnalyzer(s,"=",1));
 
-    //p.bracingStyle.push_back(bracingAnalyzer(s));
+    p.bracingStyle.push_back(bracingAnalyzer(s));
 
     return p;
 }
@@ -306,50 +303,175 @@ void deanonymize ()
 
     profile temp = tempProfile(s);
 
-    for(itr2=profiles.begin();itr2!=profiles.end();itr2++)
+    cout << "Enter classifier:\n1.Naive Bayes\n2.K Means\n";
+
+    int cl;
+
+    cin >> cl;
+
+    if(cl==1)
     {
-        double meanValue = mean ((*itr2).percentageOfWhiteSpace);
-        double var = variance(meanValue,(*itr2).percentageOfWhiteSpace);
-        double betaDistributionValueWS = betaDistribution(meanValue, var, temp.percentageOfWhiteSpace.front());
+        map <int,double> proMap;
+        map <int,double> :: iterator mapItr;
+        multimap<double,int> mm;
+        multimap<double,int>::iterator mit;
 
-        meanValue = mean ((*itr2).percentageOfEmptyLines);
-        var = variance(meanValue,(*itr2).percentageOfEmptyLines);
-        double betaDistributionValueEL = betaDistribution(meanValue, var, temp.percentageOfEmptyLines.front());
-/*
-        meanValue = mean ((*itr2).spacePerSignature);
-        var = variance(meanValue,(*itr2).spacePerSignature);
-        double normalDistributionValueSS = normalDistribution(meanValue, var, temp.spacePerSignature.front());
-
-        meanValue = mean ((*itr2).percentageOfProperIndentation);
-        var = variance(meanValue,(*itr2).percentageOfProperIndentation);
-        double betaDistributionValuePI = betaDistribution(meanValue, var, temp.percentageOfProperIndentation.front());
-
-        meanValue = mean ((*itr2).percentageOfSpaceBeforeEqual);
-        var = variance(meanValue,(*itr2).percentageOfSpaceBeforeEqual);
-        double betaDistributionValueSBE = betaDistribution(meanValue, var, temp.percentageOfSpaceBeforeEqual.front());
-
-        meanValue = mean ((*itr2).percentageOfSpaceAfterEqual);
-        var = variance(meanValue,(*itr2).percentageOfSpaceAfterEqual);
-        double betaDistributionValueSAE = betaDistribution(meanValue, var, temp.percentageOfSpaceAfterEqual.front());
-
-*/
-
-        double rankSum = betaDistributionValueWS*betaDistributionValueEL
-                        /**betaDistributionValuePI*betaDistributionValueSAE
-                        *betaDistributionValueSBE*normalDistributionValueSS*/;
-
-        //cout << "***" << rankSum << endl << betaDistributionValueEL << endl;
-/*
-        if(bracingStyleFinalizer((*itr2).bracingStyle)!=temp.bracingStyle.front())
+        for(itr2=profiles.begin();itr2!=profiles.end();itr2++)
         {
-            rankSum = -1;
-        }
-*/
+            double meanValue = mean ((*itr2).percentageOfWhiteSpace);
+            double var = variance(meanValue,(*itr2).percentageOfWhiteSpace);
+            double betaDistributionValueWS = betaDistribution(meanValue, var, temp.percentageOfWhiteSpace.front());
 
-        proMap[(*itr2).id]=rankSum;
+            meanValue = mean ((*itr2).percentageOfEmptyLines);
+            var = variance(meanValue,(*itr2).percentageOfEmptyLines);
+            double betaDistributionValueEL = betaDistribution(meanValue, var, temp.percentageOfEmptyLines.front());
+
+
+            meanValue = mean ((*itr2).spacePerSignature);
+            var = variance(meanValue,(*itr2).spacePerSignature);
+            double normalDistributionValueSS = normalDistribution(meanValue, var, temp.spacePerSignature.front());
+
+
+            meanValue = mean ((*itr2).percentageOfSpaceBeforeEqual);
+            var = variance(meanValue,(*itr2).percentageOfSpaceBeforeEqual);
+            double normalDistributionValueSBE = normalDistribution(meanValue, var, temp.percentageOfSpaceBeforeEqual.front());
+
+            meanValue = mean ((*itr2).percentageOfSpaceAfterEqual);
+            var = variance(meanValue,(*itr2).percentageOfSpaceAfterEqual);
+            double normalDistributionValueSAE = normalDistribution(meanValue, var, temp.percentageOfSpaceAfterEqual.front());
+
+
+
+            double rankSum = betaDistributionValueWS*betaDistributionValueEL
+                            *normalDistributionValueSS/**normalDistributionValueSAE
+                            *normalDistributionValueSBE*/;
+
+
+            if(bracingStyleFinalizer((*itr2).bracingStyle)!=temp.bracingStyle.front())
+            {
+                rankSum = -1;
+            }
+
+
+            meanValue = mean ((*itr2).percentageOfProperIndentation);
+            var = variance(meanValue,(*itr2).percentageOfEmptyLines);
+            if(fabs(meanValue-temp.percentageOfProperIndentation.front())>
+               sqrt(var))
+               rankSum = -1;
+
+
+            //cout << (*itr2).id << "---" << rankSum << endl << endl << endl;
+
+            proMap[(*itr2).id]=rankSum;
+        }
+
+        for(mapItr=proMap.begin();mapItr!=proMap.end();mapItr++)
+        {
+            mm.insert(make_pair(mapItr->second,mapItr->first));
+        }
+
+        mit = mm.end();
+        mit--;
+
+        cout << "\nRanking:\n";
+
+        for(int i=0; i<3; i++)
+        {
+            if(i>((int)mm.size()-1))
+                break;
+            cout << mit->second << endl;
+            mit--;
+        }
+
+        cout << endl;
+    }
+    else if(cl==2)
+    {
+        map <int,double> proMap;
+        map <int,double> :: iterator mapItr;
+        map<int,int> mp;
+        map<int,int>::iterator it;
+        multimap<int,int> mm;
+        multimap<int,int>::iterator mit;
+        vector <point> points = profilesToPointsConverter(profiles);
+
+        point de;
+
+        de.id=temp.id;
+        de.percentageOfWhiteSpace=temp.percentageOfWhiteSpace.front();
+        de.percentageOfEmptyLines=temp.percentageOfEmptyLines.front();
+        de.spacePerSignature=temp.spacePerSignature.front();
+        de.percentageOfProperIndentation=temp.percentageOfProperIndentation.front();
+        de.percentageOfSpaceBeforeEqual=temp.percentageOfSpaceBeforeEqual.front();
+        de.percentageOfSpaceAfterEqual=temp.percentageOfSpaceAfterEqual.front();
+
+        points.push_back(de);
+
+        vector<cluster> clusters = kMeans(points,profiles.size()+1);
+
+        vector<cluster>::iterator itrClus;
+        cluster finalClus;
+        vector<point>::iterator itrPo;
+
+        int markerfin = 0;
+
+        for(itrClus=clusters.begin();itrClus!=clusters.end();itrClus++)
+        {
+            for(itrPo=((*itrClus).clusPoints).begin();itrPo!=((*itrClus).clusPoints).end();
+            itrPo++)
+            {
+                if((*itrPo).id==-1)
+                {
+                    finalClus=*itrClus;
+                    markerfin=1;
+                    break;
+                }
+            }
+            if(markerfin==1)
+            {
+                break;
+            }
+        }
+
+        vector<point> finalPoints = finalClus.clusPoints;
+
+        for(itrPo=finalPoints.begin();itrPo!=finalPoints.end();itrPo++)
+        {
+            mp[(*itrPo).id]++;
+        }
+
+        for(it=mp.begin();it!=mp.end();it++)
+        {
+            if(it->first==-1)
+                continue;
+            int samSize;
+
+            for(vector<profile>::iterator iProf=profiles.begin();
+            iProf!=profiles.end();iProf++)
+            {
+                if((*iProf).id==it->first)
+                {
+                    samSize=(*iProf).numberOfSamples;
+                    break;
+                }
+            }
+            mm.insert(make_pair(it->second/samSize,it->first));
+        }
+
+        mit = mm.end();
+        mit--;
+
+        cout << "\nRanking:\n";
+
+        for(int i=0; i<3; i++)
+        {
+            if(i>((int)mm.size()-1))
+                break;
+            cout << mit->second << endl;
+            mit--;
+        }
+
+        cout << endl;
     }
 
-    int ID = matchingRankSum(proMap);
-
-    cout << "Deanonymized programmer ID: " << ID << endl;
 }

@@ -1,3 +1,8 @@
+#include <vector>
+#include "profiler.h"
+
+using namespace std;
+
 
 
 struct point
@@ -21,3 +26,4 @@ struct cluster
 
 
 vector<point> profilesToPointsConverter (vector<profile>);
+vector<cluster> kMeans (vector<point>, int);

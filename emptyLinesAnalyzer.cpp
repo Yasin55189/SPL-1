@@ -7,7 +7,7 @@ using namespace std;
 
 double percentageOfEmptyLinesAnalyzer (string fileName)
 {
-    double result;
+    double result=0;
     int emptyLines=0;
     int total=0;
 
@@ -29,5 +29,8 @@ double percentageOfEmptyLinesAnalyzer (string fileName)
 
     result = (double) (emptyLines * 100.0) / total;
 
-    return result;
+    if(result>=0.0&&result<=100.0)
+        return result;
+
+    return -1;
 }

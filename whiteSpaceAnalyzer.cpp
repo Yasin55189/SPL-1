@@ -7,7 +7,7 @@ using namespace std;
 
 double percentageOfWhiteSpaceAnalyzer (string fileName)
 {
-    double result;
+    double result=0;
     int space=0;
     int total=0;
 
@@ -30,5 +30,8 @@ double percentageOfWhiteSpaceAnalyzer (string fileName)
 
     result = (double) (space * 100.0) / total;
 
-    return result;
+    if(result>=0.0&&result<=100.0)
+        return result;
+
+    return -1;
 }

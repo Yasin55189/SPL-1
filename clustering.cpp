@@ -1,4 +1,6 @@
 #include <iostream>
+#include "clustering.h"
+#include <math.h>
 
 using namespace std;
 
@@ -79,7 +81,7 @@ bool isSamePoint (point a, point b)
        &&a.percentageOfWhiteSpace==b.percentageOfWhiteSpace
        &&a.spacePerSignature==b.spacePerSignature)
         return true;
-    else false;
+    return false;
 }
 
 vector <cluster> meanPoints (vector<cluster> clusters)
@@ -121,13 +123,13 @@ vector <cluster> clustering (vector<point> points, vector<cluster> clusters)
     for(pointIterator=points.begin();pointIterator!=points.end();pointIterator++)
     {
         vector<cluster>::iterator tempIterator;
-        double minimum = distance(*pointIterator,(clusters.front()).mean);
+        double minimum = distanceBetweenPoints(*pointIterator,(clusters.front()).mean);
         tempIterator=clusters.begin();
         for(clusterIterator=clusters.begin();clusterIterator!=clusters.end();clusterIterator++)
         {
-            if(distance(*pointIterator,(*clusterIterator).mean)<minimum)
+            if(distanceBetweenPoints(*pointIterator,(*clusterIterator).mean)<minimum)
             {
-                minimum=distance(*pointIterator,(*clusterIterator).mean);
+                minimum=distanceBetweenPoints(*pointIterator,(*clusterIterator).mean);
                 tempIterator=clusterIterator;
             }
         }
