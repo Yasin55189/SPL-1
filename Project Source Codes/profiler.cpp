@@ -356,7 +356,7 @@ void deanonymize ()
             meanValue = mean ((*itr2).percentageOfProperIndentation);
             var = variance(meanValue,(*itr2).percentageOfEmptyLines);
             if(fabs(meanValue-temp.percentageOfProperIndentation.front())>
-               sqrt(var))
+               2*sqrt(var))
                rankSum = -1;
 
 
