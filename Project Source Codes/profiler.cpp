@@ -336,7 +336,8 @@ void deanonymize ()
 
 
             double rankSum = betaDistributionValueWS*betaDistributionValueEL
-                            *normalDistributionValueSS;
+                            *normalDistributionValueSS*normalDistributionValueSAE
+                            *normalDistributionValueSBE;
 
 
             if(bracingStyleFinalizer((*itr2).bracingStyle)!=temp.bracingStyle.front())
@@ -363,8 +364,8 @@ void deanonymize ()
 
         map<int,int> mp;
         map<int,int>::iterator it;
-        multimap<int,int> mm2;
-        multimap<int,int>::iterator mit2;
+        multimap<double,int> mm2;
+        multimap<double,int>::iterator mit2;
         vector <point> points = profilesToPointsConverter(profiles);
 
         point de;
@@ -427,7 +428,8 @@ void deanonymize ()
                     break;
                 }
             }
-            mm2.insert(make_pair(it->second/samSize,it->first));
+            mm2.insert(make_pair((double)it->second/samSize,it->first));
+            //cout << (double)it->second/samSize << "---" << it->first << endl;
         }
 
 
@@ -444,14 +446,15 @@ void deanonymize ()
             mit2 = mm2.end();
             mit2--;
 
-            for(int i=0; i<3; i++)
+            for(int i=0; i<10; i++)
             {
-                if(i>((int)mm.size()-1))
+                if(i>((int)mm.size()-1)||i>((int)mm2.size()-1))
                     break;
 
                 ofile << " " << setw(2) << i+1 << "                 " << setw(2) <<
                  mit->second << "                    "
                 << setw(2) << mit2->second << endl;
+                //cout << mit2->first << endl;
                 mit--;
                 mit2--;
             }

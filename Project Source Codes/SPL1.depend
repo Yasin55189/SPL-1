@@ -255,3 +255,243 @@
 	<vector>
 	"profiler.h"
 
+1556714798 source:c:\users\asus\desktop\final project\project source codes\bracinganalyzer.cpp
+	<iostream>
+	<vector>
+	"bracingAnalyzer.h"
+	"code.h"
+
+1556714798 c:\users\asus\desktop\final project\project source codes\bracinganalyzer.h
+	<iostream>
+	<vector>
+
+1556714799 c:\users\asus\desktop\final project\project source codes\code.h
+	<iostream>
+	<vector>
+
+1556714798 source:c:\users\asus\desktop\final project\project source codes\clustering.cpp
+	<iostream>
+	"clustering.h"
+	<math.h>
+
+1556714799 c:\users\asus\desktop\final project\project source codes\clustering.h
+	<vector>
+	"profiler.h"
+
+1556714799 c:\users\asus\desktop\final project\project source codes\profiler.h
+	<iostream>
+	<vector>
+	<fstream>
+
+1556714799 source:c:\users\asus\desktop\final project\project source codes\code.cpp
+	<iostream>
+	<vector>
+	<fstream>
+
+1556796754 source:c:\users\asus\desktop\final project\project source codes\emptylinesanalyzer.cpp
+	"emptyLinesAnalyzer.h"
+	<iostream>
+	<fstream>
+
+1556714799 c:\users\asus\desktop\final project\project source codes\emptylinesanalyzer.h
+	<iostream>
+
+1556714799 source:c:\users\asus\desktop\final project\project source codes\indentationanalyzer.cpp
+	<iostream>
+	<vector>
+	"indentationAnalyzer.h"
+	"code.h"
+
+1556714799 c:\users\asus\desktop\final project\project source codes\indentationanalyzer.h
+	<iostream>
+
+1556714799 source:c:\users\asus\desktop\final project\project source codes\main.cpp
+	<iostream>
+	"profiler.h"
+
+1556714799 source:c:\users\asus\desktop\final project\project source codes\others.cpp
+	<iostream>
+	<queue>
+	"others.h"
+
+1556714799 c:\users\asus\desktop\final project\project source codes\others.h
+	<iostream>
+	<queue>
+
+1558892869 source:c:\users\asus\desktop\final project\project source codes\profiler.cpp
+	"profiler.h"
+	"others.h"
+	"whiteSpaceAnalyzer.h"
+	"emptyLinesAnalyzer.h"
+	"stat.h"
+	"bracingAnalyzer.h"
+	"indentationAnalyzer.h"
+	"signatureAnalyzer.h"
+	"spaceSymbolAnalyzer.h"
+	"clustering.h"
+	<math.h>
+	<map>
+	<dirent.h>
+	<string>
+	<vector>
+	<iomanip>
+
+1556714799 c:\users\asus\desktop\final project\project source codes\whitespaceanalyzer.h
+	<iostream>
+
+1556714799 c:\users\asus\desktop\final project\project source codes\stat.h
+	<vector>
+	<map>
+	<iostream>
+
+1556714799 c:\users\asus\desktop\final project\project source codes\signatureanalyzer.h
+	<iostream>
+
+1556714799 c:\users\asus\desktop\final project\project source codes\spacesymbolanalyzer.h
+	<iostream>
+
+1556714799 source:c:\users\asus\desktop\final project\project source codes\signatureanalyzer.cpp
+	"signatureAnalyzer.h"
+	"code.h"
+	<iostream>
+	<fstream>
+	<vector>
+
+1556811079 source:c:\users\asus\desktop\final project\project source codes\spacesymbolanalyzer.cpp
+	<iostream>
+	<vector>
+	"spaceSymbolAnalyzer.h"
+	"code.h"
+
+1556805980 source:c:\users\asus\desktop\final project\project source codes\stat.cpp
+	<iostream>
+	<math.h>
+	"stat.h"
+	<vector>
+	<map>
+
+1556796765 source:c:\users\asus\desktop\final project\project source codes\whitespaceanalyzer.cpp
+	"whiteSpaceAnalyzer.h"
+	<iostream>
+	<fstream>
+
+1556714798 source:c:\users\asus\desktop\finalproject\project source codes\bracinganalyzer.cpp
+	<iostream>
+	<vector>
+	"bracingAnalyzer.h"
+	"code.h"
+
+1556714798 c:\users\asus\desktop\finalproject\project source codes\bracinganalyzer.h
+	<iostream>
+	<vector>
+
+1556714799 c:\users\asus\desktop\finalproject\project source codes\code.h
+	<iostream>
+	<vector>
+
+1556714798 source:c:\users\asus\desktop\finalproject\project source codes\clustering.cpp
+	<iostream>
+	"clustering.h"
+	<math.h>
+
+1556714799 c:\users\asus\desktop\finalproject\project source codes\clustering.h
+	<vector>
+	"profiler.h"
+
+1556714799 c:\users\asus\desktop\finalproject\project source codes\profiler.h
+	<iostream>
+	<vector>
+	<fstream>
+
+1556714799 source:c:\users\asus\desktop\finalproject\project source codes\code.cpp
+	<iostream>
+	<vector>
+	<fstream>
+
+1556796754 source:c:\users\asus\desktop\finalproject\project source codes\emptylinesanalyzer.cpp
+	"emptyLinesAnalyzer.h"
+	<iostream>
+	<fstream>
+
+1556714799 c:\users\asus\desktop\finalproject\project source codes\emptylinesanalyzer.h
+	<iostream>
+
+1556714799 source:c:\users\asus\desktop\finalproject\project source codes\indentationanalyzer.cpp
+	<iostream>
+	<vector>
+	"indentationAnalyzer.h"
+	"code.h"
+
+1556714799 c:\users\asus\desktop\finalproject\project source codes\indentationanalyzer.h
+	<iostream>
+
+1556714799 source:c:\users\asus\desktop\finalproject\project source codes\main.cpp
+	<iostream>
+	"profiler.h"
+
+1556714799 source:c:\users\asus\desktop\finalproject\project source codes\others.cpp
+	<iostream>
+	<queue>
+	"others.h"
+
+1556714799 c:\users\asus\desktop\finalproject\project source codes\others.h
+	<iostream>
+	<queue>
+
+1558905839 source:c:\users\asus\desktop\finalproject\project source codes\profiler.cpp
+	"profiler.h"
+	"others.h"
+	"whiteSpaceAnalyzer.h"
+	"emptyLinesAnalyzer.h"
+	"stat.h"
+	"bracingAnalyzer.h"
+	"indentationAnalyzer.h"
+	"signatureAnalyzer.h"
+	"spaceSymbolAnalyzer.h"
+	"clustering.h"
+	<math.h>
+	<map>
+	<dirent.h>
+	<string>
+	<vector>
+	<iomanip>
+
+1556714799 c:\users\asus\desktop\finalproject\project source codes\whitespaceanalyzer.h
+	<iostream>
+
+1556714799 c:\users\asus\desktop\finalproject\project source codes\stat.h
+	<vector>
+	<map>
+	<iostream>
+
+1556714799 c:\users\asus\desktop\finalproject\project source codes\signatureanalyzer.h
+	<iostream>
+
+1556714799 c:\users\asus\desktop\finalproject\project source codes\spacesymbolanalyzer.h
+	<iostream>
+
+1556714799 source:c:\users\asus\desktop\finalproject\project source codes\signatureanalyzer.cpp
+	"signatureAnalyzer.h"
+	"code.h"
+	<iostream>
+	<fstream>
+	<vector>
+
+1556811079 source:c:\users\asus\desktop\finalproject\project source codes\spacesymbolanalyzer.cpp
+	<iostream>
+	<vector>
+	"spaceSymbolAnalyzer.h"
+	"code.h"
+
+1556805980 source:c:\users\asus\desktop\finalproject\project source codes\stat.cpp
+	<iostream>
+	<math.h>
+	"stat.h"
+	<vector>
+	<map>
+
+1556796765 source:c:\users\asus\desktop\finalproject\project source codes\whitespaceanalyzer.cpp
+	"whiteSpaceAnalyzer.h"
+	<iostream>
+	<fstream>
+
