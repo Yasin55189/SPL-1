@@ -13,6 +13,7 @@
 #include <dirent.h>
 #include <string>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 
@@ -303,14 +304,6 @@ void deanonymize ()
 
     profile temp = tempProfile(s);
 
-    cout << "Enter classifier:\n1.Naive Bayes\n2.K Means\n";
-
-    int cl;
-
-    cin >> cl;
-
-    if(cl==1)
-    {
         map <int,double> proMap;
         map <int,double> :: iterator mapItr;
         multimap<double,int> mm;
@@ -343,8 +336,7 @@ void deanonymize ()
 
 
             double rankSum = betaDistributionValueWS*betaDistributionValueEL
-                            *normalDistributionValueSS/**normalDistributionValueSAE
-                            *normalDistributionValueSBE*/;
+                            *normalDistributionValueSS;
 
 
             if(bracingStyleFinalizer((*itr2).bracingStyle)!=temp.bracingStyle.front())
@@ -360,7 +352,6 @@ void deanonymize ()
                rankSum = -1;
 
 
-            //cout << (*itr2).id << "---" << rankSum << endl << endl << endl;
 
             proMap[(*itr2).id]=rankSum;
         }
@@ -370,29 +361,10 @@ void deanonymize ()
             mm.insert(make_pair(mapItr->second,mapItr->first));
         }
 
-        mit = mm.end();
-        mit--;
-
-        cout << "\nRanking:\n";
-
-        for(int i=0; i<3; i++)
-        {
-            if(i>((int)mm.size()-1))
-                break;
-            cout << mit->second << endl;
-            mit--;
-        }
-
-        cout << endl;
-    }
-    else if(cl==2)
-    {
-        map <int,double> proMap;
-        map <int,double> :: iterator mapItr;
         map<int,int> mp;
         map<int,int>::iterator it;
-        multimap<int,int> mm;
-        multimap<int,int>::iterator mit;
+        multimap<int,int> mm2;
+        multimap<int,int>::iterator mit2;
         vector <point> points = profilesToPointsConverter(profiles);
 
         point de;
@@ -455,23 +427,33 @@ void deanonymize ()
                     break;
                 }
             }
-            mm.insert(make_pair(it->second/samSize,it->first));
+            mm2.insert(make_pair(it->second/samSize,it->first));
         }
 
-        mit = mm.end();
-        mit--;
 
-        cout << "\nRanking:\n";
 
-        for(int i=0; i<3; i++)
+        ofstream ofile;
+        ofile.open("results.txt");
+        if(ofile.is_open())
         {
-            if(i>((int)mm.size()-1))
-                break;
-            cout << mit->second << endl;
+            ofile << "Sample source code: " << s << endl << endl;
+            ofile << "Rank" << "\t\t" << "Naive Bayes" << "\t\t" << "K Means" << endl;
+
+            mit = mm.end();
             mit--;
+            mit2 = mm2.end();
+            mit2--;
+
+            for(int i=0; i<3; i++)
+            {
+                if(i>((int)mm.size()-1))
+                    break;
+
+                ofile << " " << setw(2) << i+1 << "                 " << setw(2) <<
+                 mit->second << "                    "
+                << setw(2) << mit2->second << endl;
+                mit--;
+                mit2--;
+            }
         }
-
-        cout << endl;
-    }
-
 }
