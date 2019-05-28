@@ -1,11 +1,13 @@
-Sample source code: C:\Users\ASUS\Desktop\finalProject\DataSet\11\11 (13).cpp
+Sample source code: C:\Users\ASUS\Desktop\finalProject\DataSet\11\11 (15).cpp
 
 Rank		Naive Bayes		K Means
-  1                  4                    16
-  2                  5                    11
-  3                 16                    15
-  4                  3                     5
-  5                 11                     4
-  6                  2                     6
-  7                  7                     3
-  8                  1                     7
+  1                  4                    14
+  2                  2                    11
+  3                  1                     8
+  4                  7                     6
+  5                 14                     4
+  6                 11                     3
+  7                  3                     2
+  8                  6                     1
+  9                 15                     5
+ 10                  8                    13

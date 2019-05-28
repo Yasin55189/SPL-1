@@ -77,7 +77,7 @@ double percentageOfSpaceSymbolAnalyzer (string fileName, string symbol, int dire
     if(numberOfSymbol==0)
         return 0.0;
 
-    return (double) (numberOfSpace/numberOfSymbol) * 100.0;
+    return ((double)numberOfSpace/numberOfSymbol) * 100.0;
 }
 
 

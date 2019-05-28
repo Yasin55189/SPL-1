@@ -308,6 +308,38 @@ void deanonymize ()
         map <int,double> :: iterator mapItr;
         multimap<double,int> mm;
         multimap<double,int>::iterator mit;
+        string faltu;
+
+        cout << "\nFeature set results for the anonymous code:\n";
+
+        cout << "\nBracing style                    : "
+        << temp.bracingStyle.front() << endl;
+        getline(cin,faltu);
+
+        cout << "Proper indentation percentage    : "
+        << temp.percentageOfProperIndentation.front() << '%' << endl;
+        getline(cin,faltu);
+
+        cout << "Rate of space per signature      : "
+        << temp.spacePerSignature.front() << endl;
+        getline(cin,faltu);
+
+        cout << "Total empty lines percentage     : "
+        << temp.percentageOfEmptyLines.front() << '%' << endl;
+        getline(cin,faltu);
+
+        cout << "Percentage of space before \'=\'   : "
+        << temp.percentageOfSpaceBeforeEqual.front() << '%' << endl;
+        getline(cin,faltu);
+
+        cout << "Percentage of space after \'=\'    : "
+        << temp.percentageOfSpaceAfterEqual.front() << '%' << endl;
+        getline(cin,faltu);
+
+        cout << "Total white space percentage     : "
+        << temp.percentageOfWhiteSpace.front() << '%' << endl << endl;
+
+        cout << "Open results.txt to see the deanonymization results." << endl << endl;
 
         for(itr2=profiles.begin();itr2!=profiles.end();itr2++)
         {
